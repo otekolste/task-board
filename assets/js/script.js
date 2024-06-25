@@ -19,6 +19,11 @@ function renderTaskList() {
 
 // Todo: create a function to handle adding a new task
 function handleAddTask(event){
+    const newTask = {
+        taskName:$('#name').val(),
+        taskDate:$('#dueDate').val().format('MM-DD-YYYY')
+
+    };
 
 }
 
@@ -36,3 +41,14 @@ function handleDrop(event, ui) {
 $(document).ready(function () {
 
 });
+
+$(function () {
+    $('#datepicker').datepicker({
+      changeMonth: true,
+      changeYear: true,
+    });
+  });
+
+
+  
+  
