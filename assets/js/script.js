@@ -34,6 +34,12 @@ function createTaskCard(task) {
     $("#" + task.taskID + " .card-text").after('<button class="delete">');
     $(".delete").text("Delete");
     $(".delete").click(handleDeleteTask);
+    $(".task").draggable({
+      revert:"invalid",
+      stack:".task",
+      helper:"clone",
+      containment:"document"
+    });
 }
 
 // Todo: create a function to render the task list and make cards draggable
@@ -41,6 +47,12 @@ function renderTaskList() {
   for(task of tasks) {
     let newTask = createTaskCard(task);
   }
+  $(".task").draggable({
+    revert:"invalid",
+    stack:".task",
+    helper:"clone",
+    containment:"document"
+  });
 
 }
 
@@ -58,7 +70,7 @@ function handleAddTask(event){
     localStorage.setItem("tasks", JSON.stringify(tasks));
     $('#formModal').modal('hide');
 
-    renderTaskList();
+    createTaskCard(newTask);
 
 }
 
@@ -82,6 +94,20 @@ function handleDeleteTask(event){
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {
+  let lane = event.target.querySelector("div");
+  ui.draggable.detach().appendTo(lane);
+  const id = ui.draggable.attr("id");
+  const index = tasks.findIndex(function(task) {
+    return task.taskID == id;
+  });
+  console.log(index);
+  if(index > -1) {
+    tasks[index].taskProgress = lane.id;
+  }
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+
+  
+
 
 }
 
@@ -92,17 +118,20 @@ $(document).ready(function () {
 
   renderTaskList();
 
-  console.log(tasks);
+  $('#datepicker').datepicker({
+    changeMonth: true,
+    changeYear: true,
+  });
+
+    $(".card-body").droppable({
+      drop: function(event, ui) {
+        handleDrop(event, ui);
+      }
+    });
+
 
 
 });
-
-$(function () {
-    $('#datepicker').datepicker({
-      changeMonth: true,
-      changeYear: true,
-    });
-  });
 
 
 
