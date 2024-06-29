@@ -22,7 +22,7 @@ function generateTaskId() {
 // Todo: create a function to create a task card
 function createTaskCard(task) {
     $("#" + task.taskProgress).append(
-      $('<div class="card" id=' + task.taskID + '>').append(
+      $('<div class="card task" id=' + task.taskID + '>').append(
         $('<div class="card-body">').append(
           $('<h3 class = "card-title">')
         )
@@ -33,7 +33,7 @@ function createTaskCard(task) {
     $("#" + task.taskID + " .card-text").html(task.taskDescription + '<br>' + task.taskDate);
     $("#" + task.taskID + " .card-text").after('<button class="delete">');
     $(".delete").text("Delete");
-    $(".delete").on("click", handleDeleteTask(task));
+    $(".delete").click(handleDeleteTask);
 }
 
 // Todo: create a function to render the task list and make cards draggable
@@ -68,7 +68,16 @@ $('#submitTask').click(function() {
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event){
+  const id = event.target.closest(".task").id;
+  const index = tasks.findIndex(t => t.taskID == id);
+  if(index>-1) {
+    tasks.splice(index, 1);
+  }
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  event.target.closest(".task").remove();
 
+
+  
 }
 
 // Todo: create a function to handle dropping a task into a new status lane
