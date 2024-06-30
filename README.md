@@ -6,7 +6,7 @@ This is a simple task board that can be used to keep track of assignments, their
 
 ## Usage
 
-To use, go [here!](otekolste.github.io/task-board)
+To use, go [here!](https://otekolste.github.io/task-board/)
 
 When you load the page, you will see an empty task board with 3 columns. Click "Add Task" to get started. 
 
