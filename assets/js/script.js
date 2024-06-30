@@ -33,7 +33,7 @@ function createTaskCard(task) {
     $("#" + task.taskID + " h3").html(task.taskName); // Sets text of header to task name
     $("#" + task.taskID + " .card-body").append('<div class= "card-text">'); // Adds section for card text
     $("#" + task.taskID + " .card-text").html(task.taskDescription + '<br>' + task.taskDate); // Adds task description and due date in text of card-body 
-    $("#" + task.taskID + " .card-text").after('<button class="delete btn btn-danger" aria-label: "delete task">'); // Adds delete button
+    $("#" + task.taskID + " .card-text").after('<button class="delete btn btn-danger border border-white" aria-label: "delete task">'); // Adds delete button
     $(".delete").text("Delete"); // Adds text to delete button
     $(".delete").click(handleDeleteTask); // Assigns click event to button
 
