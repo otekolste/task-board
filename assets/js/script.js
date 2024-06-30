@@ -51,7 +51,7 @@ function renderTaskColor(task) {
   if(task.taskProgress == "done-cards") {
     $("#" + task.taskID).css("background-color", "white");
   }
-  else if(dayjs().isAfter(task.taskDate)) {
+  else if(dayjs().isAfter(task.taskDate, 'day')) {
     $("#" + task.taskID).css("background-color", "red");
   }
   else if(Math.abs(dayjs().diff(task.taskDate, 'day')) < 1){
