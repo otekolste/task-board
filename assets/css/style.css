@@ -19,3 +19,8 @@ body {
   opacity: 0.5;
   width: 100%;
 }
+
+.card {
+  margin: 0 auto;
+  float: none;
+}
