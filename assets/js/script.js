@@ -22,16 +22,18 @@ function generateTaskId() {
 // Todo: create a function to create a task card
 function createTaskCard(task) {
     $("#" + task.taskProgress).append( // Appends card to the appropriate lane based on progress status
-      $('<div class="card task w-75" id=' + task.taskID + '>').append( // Set up card class
-        $('<div class="card-body">').append( // Set up card body
-          $('<h3 class = "card-header">') // Set up card title section
+      $('<div class="card task w-75 mb-3" id=' + task.taskID + '>').append( // Set up card class
+        $('<div class="card-body mb-2 p-0">').append( // Set up card body
+          $('<div class = "card-header pb-0 mb-2">').append(
+            $('<h3 class = "card-title">')
+          ) // Set up card title section
         )
       )
     );
     $("#" + task.taskID + " h3").html(task.taskName); // Sets text of header to task name
-    $("#" + task.taskID + " h3").after('<div class= "card-text">'); // Adds section for card text
+    $("#" + task.taskID + " .card-body").append('<div class= "card-text">'); // Adds section for card text
     $("#" + task.taskID + " .card-text").html(task.taskDescription + '<br>' + task.taskDate); // Adds task description and due date in text of card-body 
-    $("#" + task.taskID + " .card-text").after('<button class="delete">'); // Adds delete button
+    $("#" + task.taskID + " .card-text").after('<button class="delete btn btn-danger">'); // Adds delete button
     $(".delete").text("Delete"); // Adds text to delete button
     $(".delete").click(handleDeleteTask); // Assigns click event to button
 
