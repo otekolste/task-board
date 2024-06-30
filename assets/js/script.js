@@ -34,18 +34,36 @@ function createTaskCard(task) {
     $("#" + task.taskID + " .card-text").after('<button class="delete">');
     $(".delete").text("Delete");
     $(".delete").click(handleDeleteTask);
+
     $(".task").draggable({
       revert:"invalid",
       stack:".task",
       helper:"clone",
       containment:"document"
     });
+    
+    renderTaskColor(task);
+
+
+}
+
+function renderTaskColor(task) {
+  if(task.taskProgress == "done-cards") {
+    $("#" + task.taskID).css("background-color", "white");
+  }
+  else if(dayjs().isAfter(task.taskDate)) {
+    $("#" + task.taskID).css("background-color", "red");
+  }
+  else if(Math.abs(dayjs().diff(task.taskDate, 'day')) < 1){
+    $("#" + task.taskID).css("background-color", "yellow");
+  }
 }
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
   for(task of tasks) {
     let newTask = createTaskCard(task);
+    renderTaskColor(task);
   }
   $(".task").draggable({
     revert:"invalid",
@@ -104,6 +122,9 @@ function handleDrop(event, ui) {
   if(index > -1) {
     tasks[index].taskProgress = lane.id;
   }
+  renderTaskColor(tasks.find(function(task) {
+    return task.taskID == id;
+  }));
   localStorage.setItem("tasks", JSON.stringify(tasks));
 
   
